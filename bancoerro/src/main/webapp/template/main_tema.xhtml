@@ -1,0 +1,66 @@
+<html xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.prime.com.tr/ui"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+
+<f:view contentType="text/html" />
+
+<h:head>
+	<title>#{messages['maintema.titulo.pagina']}</title>
+	<link type="text/css" rel="stylesheet" href="css/styles.css" />
+	<script type="text/javascript" src="js/jquery.tools.min.js"></script>
+	
+	<style>
+		.tooltip{
+			display:none;
+			background:transparent url(js/img/white_arrowUp.png);
+			font-size:15px;
+			height:70px;
+			width:160px;
+			padding:25px 25px 25px 25px;
+			text-align:center;
+			color:#000000;
+			font-weight: bold;
+		}
+	</style>
+
+	<script type="text/javascript">
+		jQuery(document).ready(function(){
+			//alert("TESTE1")		
+			jQuery('#form\\:codigoConsultar,#form\\:codigoConsultar input:text').tooltip({ 
+					position:"bottom center", 
+					opacity: 0.7,
+					effect : "fade" 	
+			});
+		});	
+	</script>
+</h:head>
+
+<h:body style="background-color:#f1f1f1">
+
+
+	<a href="index.jsf">
+		<img src="images/logoTJ2.gif" border="0" />
+	</a>
+	
+	<p:panel style="float: right;margin:40px 3px 0 20px;" rendered="#{securityContext.loggedIn}">
+		<h:outputLabel value="#{messages['maintema.label.pagina']} #{securityContext.user.getAttribute('nome')}" />						
+	</p:panel>
+
+
+	<table style="width: 100%">
+		<tr>
+			<td height="20" colspan="2"><ui:include src="/barra_menu.xhtml" />
+			</td>
+		</tr>
+		<tr valign="top">
+			<td height="400" colspan="2"><ui:insert name="body" />
+			</td>
+		</tr>
+		<tr align="center">
+			<td height="20" colspan="2" align="center" class="text-input">#{messages['maintema.rodape.pagina']}</td>
+		</tr>
+	</table>
+	
+</h:body>
+</html>

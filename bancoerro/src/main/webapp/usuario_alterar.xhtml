@@ -1,0 +1,68 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.prime.com.tr/ui"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	template="/template/main_tema.xhtml">
+
+	<ui:define name="body">
+	
+		<div align="center">
+		
+			<f:view>
+				
+				<div align="left" style="width: 840px">
+					<p:messages id="msg" />
+				</div>
+				
+				<h:form id="form">
+				
+					<p:toolbar style="width: 830px">
+						<p:toolbarGroup align="center">
+							<h:outputText value="#{messages['usuario.alterar.titulo']}" />
+						</p:toolbarGroup>
+					</p:toolbar>
+					
+					<p:fieldset style="width: 800px; text-align: left">
+						
+						<h:inputHidden id="idAlterar" value="#{usuarioEditMB.bean.id}" />
+						<h:inputHidden id="loginAlterar" value="#{usuarioEditMB.bean.login}" />
+						
+						<h:panelGrid id="fields" columns="2">
+							
+							<h:outputLabel value="#{messages['usuario.cadastrar.label.login']} " />
+							<h:outputLabel id="login" value="#{usuarioEditMB.bean.login}" style="font-size: 18px; font-weight: bold;" />
+							
+							<h:outputLabel value="#{messages['usuario.cadastrar.label.senha']} " />
+							<p:password id="senhaAlterar" maxlength="10" feedback="false" value="#{usuarioEditMB.bean.senha}" size="12" />
+							
+							<h:outputLabel value="#{messages['usuario.cadastrar.label.senhaconfirme']} " />
+							<p:password id="senhaConfirmacao" maxlength="10" feedback="false" value="#{usuarioEditMB.senhaConfirmacao}" size="12" />
+							
+							<h:outputLabel value="#{messages['usuario.cadastrar.label.nome']} " />
+							<p:inputText id="nomeAlterar" value="#{usuarioEditMB.bean.nome}" size="40" maxlength="150"/>
+							
+							<h:outputLabel value="#{messages['usuario.cadastrar.label.perfil']} " />
+							<h:selectOneMenu id="comboboxPerfilAlterar" style="width: 205px" value="#{usuarioEditMB.bean.perfil}">
+								<f:selectItem itemLabel="#{messages['usuario.cadastrar.itemlabel.combobox1']}" />
+								<f:selectItems value="#{perfilListMB.resultList}" var="perfil" itemLabel="#{perfil.descricao}" itemValue="#{perfil}" />
+							</h:selectOneMenu>
+							
+						</h:panelGrid>
+						
+					</p:fieldset>
+					
+					<br />
+					
+					<p:commandButton id="botaoAlterar" value="#{messages['botao.alterar']}" action="#{usuarioEditMB.update}" ajax="false" style="margin-right: 20px;" />
+					<p:commandButton id="botaoVoltar" value="#{messages['botao.voltar']}" action="#{usuarioEditMB.getPreviousView}" ajax="false" style="margin-right: 20px;" />
+					<p:commandButton id="botaoCancelar" value="#{messages['botao.cancelar']}" action="/index.jsf" ajax="false" />
+					
+				</h:form>
+				
+			</f:view>
+			
+		</div>
+		
+	</ui:define>
+</ui:composition>

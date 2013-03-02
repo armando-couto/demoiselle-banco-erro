@@ -1,0 +1,62 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.prime.com.tr/ui"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	template="/template/main_tema.xhtml">
+
+	<ui:define name="body">
+
+		<f:view>
+
+			<p:messages id="msg" globalOnly="true" />
+
+			<h:form>
+
+				<p:dataTable id="lista" var="usuario" paginator="true" paginatorPosition="bottom" rows="10" value="#{usuarioListMB.resultList}" rendered="#{not empty usuarioListMB.resultList}">
+
+					<f:facet name="header">
+						<h:outputText id="tituloLista" value="#{messages['usuario.listar.titulo']}" />
+					</f:facet>
+
+					<p:column style="width:15%;" sortBy="#{usuario.login}">
+						<f:facet name="header">#{messages['usuario.listar.tabela.login']}</f:facet>
+						<h:outputText id="loginLista" value="#{usuario.login}" />
+					</p:column>
+
+					<p:column style="width:52%;" sortBy="#{usuario.nome}">
+						<f:facet name="header">#{messages['usuario.listar.tabela.nome']}</f:facet>
+						<h:outputText id="nomeLista" value="#{usuario.nome}" />
+					</p:column>
+
+					<p:column style="width:24%;" sortBy="#{usuario.perfil.papel}">
+						<f:facet name="header">#{messages['usuario.listar.tabela.perfil']}</f:facet>
+						<h:outputText id="perfilLista" value="#{usuario.perfil.descricao}" />
+					</p:column>
+
+					<p:column style="width:9%;">
+						<f:facet name="header">#{messages['usuario.listar.tabela.acoes']}</f:facet>
+						<p:commandButton id="botaoEditar" title="#{messages['botao.editar']}" image="ui-icon-pencil" action="#{usuarioEditMB.getNextView}" ajax="false">
+							<f:param name="id" value="#{usuario.id}"/>
+						</p:commandButton>
+						<p:commandButton id="botaoDeletar" title="#{messages['botao.deletar']}" image="ui-icon-close" onclick="confirmar.show()">
+							<f:setPropertyActionListener target="#{usuarioEditMB.bean}" value="#{usuario}" />
+						</p:commandButton>
+					</p:column>
+
+				</p:dataTable>
+				
+				<p:confirmDialog id="dialog" message="#{messages['mensagem.generica.dialog.titulo']}" header="#{messages['mensagem.generica.dialog.subtitulo']}" widgetVar="confirmar">
+					<p:commandButton id="botaoSim" value="#{messages['mensagem.generica.dialog.sim']}" action="#{usuarioEditMB.delete}" onclick="confirmar.hide()" ajax="false" />
+					<p:commandButton id="botaoNao" value="#{messages['mensagem.generica.dialog.nao']}" onclick="confirmar.hide()" immediate="true" />
+				</p:confirmDialog>
+				
+				<p:panel style="text-align: center;" rendered="#{empty usuarioListMB.resultList}">
+					<h:outputLabel id="listaVazia" value="#{messages['mensagem.generica.listavazia']}" />
+				</p:panel>
+
+			</h:form>
+
+		</f:view>
+	</ui:define>
+</ui:composition>

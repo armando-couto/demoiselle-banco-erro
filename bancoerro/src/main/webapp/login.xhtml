@@ -1,0 +1,50 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.prime.com.tr/ui"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	template="/template/main_tema.xhtml"
+	xmlns:a4j="http://richfaces.org/a4j">
+
+	<ui:define name="body">
+
+		<div align="center">
+
+			<f:view>
+
+				<div align="left" style="width: 800px;">
+					<p:messages id="msg" />
+				</div>
+
+				<h:form id="form">
+
+					<p:toolbar style="width: 790px;">
+						<p:toolbarGroup align="center">
+							<h:outputText id="tituloLogin" value="#{messages['login.titulo']}" />
+						</p:toolbarGroup>
+					</p:toolbar>
+					
+					<p:panel style="width: 790px;">
+						<h:panelGrid columns="2">
+							<h:outputText value="#{messages['login.label.usuario']} " />
+							<p:inputText id="login" value="#{credenciaisMB.credenciais.login}" maxlength="10" />
+		
+							<h:outputText value="#{messages['login.label.senha']} " />
+							<p:password id="senha" feedback="false" value="#{credenciaisMB.credenciais.senha}" maxlength="10"/>
+
+						</h:panelGrid>
+					</p:panel>
+					
+					<br />
+					
+					<p:commandButton id="botaoLogar" value="#{messages['botao.logar']}" action="#{credenciaisMB.login}" ajax="false" />
+					
+				</h:form>
+
+			</f:view>
+
+		</div>
+
+	</ui:define>
+
+</ui:composition>

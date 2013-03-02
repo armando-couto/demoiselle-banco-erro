@@ -1,0 +1,78 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.prime.com.tr/ui"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	template="/template/main_tema.xhtml"
+	xmlns:a4j="http://richfaces.org/a4j">
+
+	<ui:define name="body">
+
+		<div align="center">
+
+			<f:view>
+
+				<div align="left" style="width: 840px">
+					<p:messages id="msg" />
+				</div>
+
+				<p:toolbar style="width: 830px">
+					<p:toolbarGroup align="center">
+						<h:outputText id="tituloConsultar" value="#{messages['erroalerta.consulta.titulo']}" />
+					</p:toolbarGroup>
+				</p:toolbar>
+
+				<h:form id="form">
+
+					<p:fieldset style="width: 800px; text-align: left">
+						<h:panelGrid columns="4">
+							<h:outputLabel value="#{messages['erroalerta.consulta.label.pesquisar']}" />
+							<p:inputMask id="codigoConsultar" mask="****-9999" value="#{consultaErroMB.codigo}" size="12" title="Insira o código do sistema e o código do erro. Ex: SIS1 - 0001"/>
+							<p:watermark for="codigoConsultar" value="####-####" />
+							<p:commandButton id="botaoPesquisar" value="#{messages['botao.pesquisar']}" action="#{consultaErroMB.pesquisar}" ajax="false" />
+						</h:panelGrid>
+					</p:fieldset>
+
+				</h:form>
+
+				<p:toolbar style="width:830px" rendered="#{consultaErroMB.status}">
+					<p:toolbarGroup align="center">
+						<h:outputText id="tituloPesquisa" value="#{messages['erroalerta.consulta.titulo.pesquisar']}" />
+					</p:toolbarGroup>
+				</p:toolbar>
+
+				<p:fieldset style="width: 800px; text-align: left" rendered="#{consultaErroMB.status}">
+					<h:panelGrid>
+						<h:outputLabel value="#{messages['erroalerta.consulta.fieldset.sistema']}" style="font-weight: bold;" />
+						<p:panel style="width: 780px;">
+							<h:outputText id="descricaoPesquisa" value="#{consultaErroMB.erroAlerta.sistema.descricao}" />
+						</p:panel>
+						
+						<h:outputLabel value="#{messages['erroalerta.consulta.fieldset.erroalerta']}" style="font-weight: bold;" />
+						<p:panel style="width: 780px;">
+							<h:outputText id="codigoPesquisa" value="#{consultaErroMB.erroAlerta.codigo}" />
+						</p:panel>
+						
+						<h:outputLabel value="#{messages['erroalerta.consulta.fieldset.motivo']}" style="font-weight: bold;" />
+						<p:panel style="width: 780px;">
+							<h:outputText id="motivoPesquisa" value="#{consultaErroMB.erroAlerta.motivo}" escape="false" />
+						</p:panel>
+						
+						<h:outputLabel value="#{messages['erroalerta.consulta.fieldset.acao']}" style="font-weight: bold;" />
+						<p:panel style="width: 780px;">
+							<h:outputText id="acaoPesquisa" value="#{consultaErroMB.erroAlerta.acao}" escape="false" />
+						</p:panel>
+						
+					</h:panelGrid>
+				</p:fieldset>
+				
+				<p:dialog header="Pesquisar Erro" widgetVar="dlg" resizable="false">
+					<h:outputLabel value="Digite o sistema e depois o erro." />
+				</p:dialog>
+
+			</f:view>
+
+		</div>
+
+	</ui:define>
+</ui:composition>

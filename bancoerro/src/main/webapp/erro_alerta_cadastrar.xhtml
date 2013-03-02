@@ -1,0 +1,77 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.prime.com.tr/ui"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	template="/template/main_tema.xhtml">
+
+	<ui:define name="body">
+
+		<div align="center">
+
+			<f:view>
+
+				<div align="left" style="width: 840px">
+					<p:messages id="msg"  />
+				</div>
+
+				<h:form id="form">
+
+					<p:toolbar style="width: 830px">
+						<p:toolbarGroup align="center">
+							<h:outputText id="tituloCadastrar" value="#{messages['erroalerta.cadastrar.titulo']}" />
+						</p:toolbarGroup>
+					</p:toolbar>
+
+					<p:fieldset style="width: 800px; text-align: left">
+						<h:panelGrid columns="2">
+							<h:outputLabel value="#{messages['erroalerta.cadastrar.label.sistema']} " />
+							<h:selectOneMenu id="comboboxSistemaCadastrar" style="width: 300px" value="#{erroAlertaEditMB.bean.sistema}" valueChangeListener="#{erroAlertaEditMB.preencher}">
+								<f:selectItem itemLabel="#{messages['erroalerta.cadastrar.itemlabel.combobox.sistema']}" />
+								<f:selectItems value="#{sistemaListMB.resultList}" var="sistema" itemLabel="#{sistema.descricao}" itemValue="#{sistema}" />
+							    <f:ajax render="codigoCadastrar :msg" execute="@this" />
+							</h:selectOneMenu>
+							
+							<h:outputLabel value="#{messages['erroalerta.cadastrar.label.codigo']} " />
+							<p:inputMask id="codigoCadastrar" mask="9999" size="6" value="#{erroAlertaEditMB.bean.codigo}" />
+							
+							<h:outputLabel value="#{messages['erroalerta.cadastrar.label.descricao']} " />
+							<p:inputText id="descricaoCadastrar" value="#{erroAlertaEditMB.bean.descricao}" style="width: 300px" />
+						</h:panelGrid>
+					</p:fieldset>
+
+					<br />
+
+					<p:toolbar style="width: 830px">
+						<p:toolbarGroup>
+							<h:outputLabel value="#{messages['erroalerta.cadastrar.label.motivo']} " />
+						</p:toolbarGroup>
+					</p:toolbar>
+
+					<p:editor id="motivoCadastrar" value="#{erroAlertaEditMB.bean.motivo}" widgetVar="editor" width="830" />
+
+					<br />
+
+					<p:toolbar style="width: 830px">
+						<p:toolbarGroup>
+							<h:outputLabel value="#{messages['erroalerta.cadastrar.label.acao']} " />
+						</p:toolbarGroup>
+					</p:toolbar>
+
+					<p:editor id="acaoCadastrar" value="#{erroAlertaEditMB.bean.acao}" widgetVar="editor" width="830" />
+
+					<h:inputHidden id="contadorCadastrar" value="#{erroAlertaEditMB.bean.contador}" />
+
+					<br />
+
+					<p:commandButton id="botaoSalvar" value="#{messages['botao.salvar']}" update="msg,form" action="#{erroAlertaEditMB.insert}" style="margin-right: 20px;" />
+					<p:commandButton id="botaoCancelar" ajax="false" value="#{messages['botao.cancelar']}" action="/index.jsf" />
+				
+				</h:form>
+
+			</f:view>
+
+		</div>
+
+	</ui:define>
+</ui:composition>

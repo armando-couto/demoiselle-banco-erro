@@ -1,0 +1,78 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.prime.com.tr/ui"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	template="/template/main_tema.xhtml"
+	xmlns:a4j="http://richfaces.org/a4j">
+
+	<ui:define name="body">
+	
+		<div align="center">
+		
+			<f:view>
+
+				<div align="left" style="width: 840px">
+					<p:messages id="msg"  />
+				</div>
+
+				<h:form id="form">
+
+					<p:toolbar style="width: 830px">
+						<p:toolbarGroup align="center">
+							<h:outputText id="tituloAlterar" value="#{messages['erroalerta.alterar.titulo']}" />
+						</p:toolbarGroup>
+					</p:toolbar>
+
+					<h:inputHidden id="idAlterar" value="#{erroAlertaEditMB.bean.id}" />
+					<h:inputHidden id="idSistemaAlterar" value="#{erroAlertaEditMB.bean.sistema}" />
+					<h:inputHidden id="codigoAlterar" value="#{erroAlertaEditMB.bean.codigo}" />
+					<h:inputHidden id="contadorAlterar" value="#{erroAlertaEditMB.bean.contador}" />
+
+					<p:fieldset style="width: 800px; text-align: left">
+						<h:panelGrid columns="2">
+							<h:outputLabel value="#{messages['erroalerta.alterar.label.sistema']} " />
+							<h:outputText id="sistemaLabel" value="#{erroAlertaEditMB.bean.sistema.descricao}" style="font-size: 18px; font-weight: bold;"/>
+							
+							<h:outputLabel value="#{messages['erroalerta.alterar.label.codigo']} " />
+							<h:outputText id="codigoLabel" value="#{erroAlertaEditMB.bean.codigo}" style="font-size: 18px; font-weight: bold;"/>
+							
+							<h:outputLabel value="#{messages['erroalerta.alterar.label.descricao']} " />
+							<p:inputText id="descicaoAlterar" value="#{erroAlertaEditMB.bean.descricao}" size="50"/>
+						</h:panelGrid>
+					</p:fieldset>
+
+					<br />
+
+					<p:toolbar style="width: 830px">
+						<p:toolbarGroup>
+							<h:outputLabel value="#{messages['erroalerta.alterar.label.motivo']} " />
+						</p:toolbarGroup>
+					</p:toolbar>
+
+					<p:editor id="motivoAlterar" value="#{erroAlertaEditMB.bean.motivo}" widgetVar="editor" width="830" />
+
+					<br />
+
+					<p:toolbar style="width: 830px">
+						<p:toolbarGroup>
+							<h:outputLabel value="#{messages['erroalerta.alterar.label.acao']} " />
+						</p:toolbarGroup>
+					</p:toolbar>
+
+					<p:editor id="acaoAlterar" value="#{erroAlertaEditMB.bean.acao}" widgetVar="editor" width="830" />
+
+					<br />
+
+					<p:commandButton id="botaoAlterar" value="#{messages['botao.alterar']}" ajax="false" action="#{erroAlertaEditMB.update}" style="margin-right: 20px;" />
+					<p:commandButton id="botaoVoltar" ajax="false" value="#{messages['botao.voltar']}" action="#{erroAlertaEditMB.getPreviousView}" style="margin-right: 20px;" />
+					<p:commandButton id="botaoCancelar" ajax="false" value="#{messages['botao.cancelar']}" action="/index.jsf" />
+				
+				</h:form>
+
+			</f:view>
+
+		</div>
+
+	</ui:define>
+</ui:composition>

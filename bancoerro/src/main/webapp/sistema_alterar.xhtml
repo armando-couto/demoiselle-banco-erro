@@ -1,0 +1,63 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.prime.com.tr/ui"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	template="/template/main_tema.xhtml"
+	xmlns:a4j="http://richfaces.org/a4j">
+	
+	<ui:define name="body">
+
+		<style type="text/css">
+			td{
+				vertical-align: top;
+			}
+		</style>
+
+		<div align="center">
+
+			<f:view>
+
+				<div align="left" style="width: 800px">
+					<p:messages id="msg" />
+				</div>
+
+				<h:form id="form">
+
+					<p:toolbar style="width: 830px">
+						<p:toolbarGroup align="center">
+							<h:outputText id="tituloAlterar" value="#{messages['sistema.alterar.titulo']}" />
+						</p:toolbarGroup>
+					</p:toolbar>
+
+					<h:inputHidden id="idAlterar" value="#{sistemaEditMB.bean.id}" />
+					<h:inputHidden id="codigoAlterar" value="#{sistemaEditMB.bean.codigo}" />
+
+					<p:fieldset style="width: 800px; text-align: left">
+						<h:panelGrid id="fields" columns="2">
+							<h:outputLabel value="#{messages['sistema.cadastrar.label.codigo']} " />
+							<h:outputText id="codigoLabel" value="#{sistemaEditMB.bean.codigo}" style="font-size: 18px; font-weight: bold;"/>
+
+							<h:outputLabel styleClass="text-input" value="#{messages['sistema.cadastrar.label.descricao']} " />
+							<p:inputText id="descricaoAlterar" value="#{sistemaEditMB.bean.descricao}" size="50" maxlength="100" />
+
+							<h:outputLabel value="#{messages['sistema.cadastrar.label.observacao']}" for="observacao" styleClass="text-input" />
+							<p:inputTextarea id="observacaoAlterar" value="#{sistemaEditMB.bean.observacao}" cols="80" rows="4"/>
+						</h:panelGrid>
+					</p:fieldset>
+
+					<br />
+
+					<p:commandButton id="botaoAlterar" value="#{messages['botao.alterar']}" ajax="false" action="#{sistemaEditMB.update}" style="margin-right: 20px;" />
+					<p:commandButton id="botaoVoltar" value="#{messages['botao.voltar']}" ajax="false" action="#{sistemaEditMB.getPreviousView}" style="margin-right: 20px;" />
+					<p:commandButton id="botaoCancelar" value="#{messages['botao.cancelar']}" action="/index.jsf" ajax="false" />
+				
+				</h:form>
+
+			</f:view>
+
+		</div>
+
+	</ui:define>
+	
+</ui:composition>

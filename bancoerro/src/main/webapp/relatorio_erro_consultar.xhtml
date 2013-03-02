@@ -1,0 +1,53 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.prime.com.tr/ui"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	template="/template/main_tema.xhtml"> 
+
+	<ui:define name="body">
+	
+		<div align="center">
+		
+			<f:view>
+			
+				<div align="left" style="width: 840px">
+					<p:messages id="msg"/>
+				</div>
+				
+				<p:toolbar style="width: 830px">
+					<p:toolbarGroup align="center">
+						<h:outputText id="tituloRelatorio" value="#{messages['relatorio.erro.consulta.titulo']}" />
+					</p:toolbarGroup>
+				</p:toolbar>
+				
+				<h:form id="form">
+				
+					<p:fieldset style="width: 800px; text-align: left">
+						<h:panelGrid columns="2">
+							<h:outputLabel value="#{messages['relatorio.erro.label.codigosistema']} " />
+							<h:selectOneMenu id="comboboxSistemaRelatorio" style="width: 300px" value="#{relatorioMB.sistema}">
+								<f:selectItem itemLabel="#{messages['relatorio.erro.label.itemlabel.combobox.sistema']}" />
+								<f:selectItems value="#{sistemaListMB.resultList}" var="sistema" itemLabel="#{sistema.descricao}" itemValue="#{sistema}" />
+							</h:selectOneMenu>
+														
+							<h:outputLabel value="#{messages['relatorio.erro.label.codigoerro']}" />
+							<p:inputMask id="codigoRelatorio" mask="9999" size="6" value="#{relatorioMB.codigoErro}" />
+							
+							<h:outputLabel value="#{messages['relatorio.erro.label.datainicial']}" />
+						    <p:calendar id="dataInicialRelatorio" value="#{relatorioMB.dataIni}" showOn="button" pattern="dd/MM/yyyy" size="12"/>
+						    
+						    <h:outputLabel value="#{messages['relatorio.erro.label.datafinal']}" />
+							<p:calendar id="dataFinalRelatorio" value="#{relatorioMB.dataFim}" showOn="button" pattern="dd/MM/yyyy" size="12"/>		
+						</h:panelGrid>
+					</p:fieldset>
+					
+					<br />
+
+					<p:commandButton id="botaoGerar" value="#{messages['botao.gerarRelatorio']}" ajax="false" action="#{relatorioMB.showReportErro}" style="margin-right: 20px;"/>
+					<p:commandButton id="botaoCancelar" ajax="false" value="#{messages['botao.cancelar']}" action="/index.jsf" />
+				</h:form>
+			</f:view>
+		</div>
+	</ui:define>
+</ui:composition>

@@ -1,0 +1,90 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.prime.com.tr/ui"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	template="/template/main_tema.xhtml">
+
+	<ui:define name="body">
+
+		<f:view>
+			<h:form id="form">
+
+				<div align="center">
+					
+					<div align="left" style="width: 840px">
+						<p:messages id="msg" globalOnly="true" />
+					</div>
+					
+					<p:toolbar style="width: 830px">
+						<p:toolbarGroup align="center">
+							<h:outputText id="tituloListar" value="#{messages['erroalerta.listar.titulo']}" />
+						</p:toolbarGroup>
+					</p:toolbar>
+
+					<p:fieldset style="width: 800px; text-align: left">
+						<h:panelGrid columns="3">
+							<h:outputLabel value="#{messages['erroalerta.listar.label.sistema']} " />
+							<h:selectOneMenu id="comboboxErroAlertaListar" style="width: 300px" value="#{erroAlertaListMB.codigo}">
+								<f:selectItem itemLabel="#{messages['erroalerta.listar.itemlabel.combobox.sistema']}" />
+								<f:selectItems value="#{sistemaListMB.resultList}" var="sistema" itemLabel="#{sistema.descricao}" itemValue="#{sistema.codigo}" />
+							</h:selectOneMenu>
+							<p:commandButton id="botaoPesquisar" value="#{messages['botao.pesquisar']}" action="#{erroAlertaListMB.pesquisarErroAlerta}" ajax="false" />
+						</h:panelGrid>
+					</p:fieldset>
+					
+				</div>
+				
+				<br />
+
+				<p:dataTable id="lista" var="erroalerta" paginator="true" paginatorPosition="bottom" rows="10" value="#{erroAlertaListMB.lista}" rendered="#{not empty erroAlertaListMB.lista}">
+
+					<f:facet name="header">
+						<h:outputText id="tituloLista" value="#{messages['erroalerta.listar.titulo']}" />
+					</f:facet>
+
+					<p:column style="width:15%;" sortBy="#{erroalerta.codigo}">
+						<f:facet name="header">#{messages['erroalerta.listar.tabela.codigo']}</f:facet>
+						<h:outputText id="codigoLista" value="#{erroalerta.codigo}" />
+					</p:column>
+
+					<p:column style="width:50%;" sortBy="#{erroalerta.descricao}">
+						<f:facet name="header">#{messages['erroalerta.listar.tabela.descricao']}</f:facet>
+						<h:outputText id="descricaoLista" value="#{erroalerta.descricao}" />
+					</p:column>
+
+					<p:column style="width:10%;" sortBy="#{erroalerta.contador}">
+						<f:facet name="header">#{messages['erroalerta.listar.tabela.contador']}</f:facet>
+						<h:outputText id="contadorLista" value="#{erroalerta.contador}" />
+					</p:column>
+
+					<p:column style="width:16%;" sortBy="#{erroalerta.sistema.codigo}">
+						<f:facet name="header">#{messages['erroalerta.listar.tabela.sistema']}</f:facet>
+						<h:outputText id="codigoSistemaLista" value="#{erroalerta.sistema.codigo}" />
+					</p:column>
+
+					<p:column style="width:9%;">
+						<f:facet name="header">#{messages['sistema.listar.tabela.acoes']}</f:facet>
+						<p:commandButton id="botaoEditar" title="#{messages['botao.editar']}" image="ui-icon-pencil" action="#{erroAlertaEditMB.getNextView}" ajax="false">
+							<f:param name="id" value="#{erroalerta.id}"/>
+						</p:commandButton>
+						<p:commandButton id="botaoDeletar" onclick="confirmar.show()" title="#{messages['botao.deletar']}" image="ui-icon-close" >
+							<f:setPropertyActionListener target="#{erroAlertaEditMB.bean}" value="#{erroalerta}" />
+						</p:commandButton>
+					</p:column>
+				</p:dataTable>
+				
+				<p:confirmDialog id="dialog" message="#{messages['mensagem.generica.dialog.titulo']}" header="#{messages['mensagem.generica.dialog.subtitulo']}" widgetVar="confirmar">
+					<p:commandButton id="botaoSim" value="#{messages['mensagem.generica.dialog.sim']}" action="#{erroAlertaEditMB.delete}" onclick="confirmar.hide()" ajax="false"/>
+					<p:commandButton id="botaoNao" value="#{messages['mensagem.generica.dialog.nao']}" onclick="confirmar.hide()" immediate="true" />
+				</p:confirmDialog>
+				
+				<p:panel style="text-align: center;" rendered="#{empty erroAlertaListMB.lista}">
+					<h:outputLabel id="listaVazia" value="#{messages['mensagem.generica.listavazia']}" />
+				</p:panel>
+				
+			</h:form>
+
+		</f:view>
+	</ui:define>
+</ui:composition>

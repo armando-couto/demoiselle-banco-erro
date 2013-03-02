@@ -1,0 +1,37 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" 
+				xmlns:f="http://java.sun.com/jsf/core"
+				xmlns:p="http://primefaces.prime.com.tr/ui"
+				xmlns:h="http://java.sun.com/jsf/html"
+				xmlns:ui="http://java.sun.com/jsf/facelets">
+
+	<h:form>
+		<p:menubar>
+			<p:menuitem id="menuteste" value="#{messages['barramenu.label.consultar']}" url="/erro_alerta_consultar.jsf" rendered="#{!securityContext.loggedIn}" />
+		
+			<p:submenu label="#{messages['barramenu.label.sistema']}" rendered="#{credenciaisMB.verificarPapel}">
+				<p:menuitem value="#{messages['barramenu.label.cadastrar']}" url="/sistema_cadastrar.jsf" />
+				<p:menuitem value="#{messages['barramenu.label.listar']}" url="/sistema_listar.jsf" />
+			</p:submenu>
+			
+			<p:submenu label="#{messages['barramenu.label.erroalerta']}" rendered="#{securityContext.loggedIn}">
+				<p:menuitem value="#{messages['barramenu.label.cadastrar']}" url="/erro_alerta_cadastrar.jsf" />
+				<p:menuitem value="#{messages['barramenu.label.consultar']}" url="/erro_alerta_consultar.jsf" />
+				<p:menuitem value="#{messages['barramenu.label.listar']}" url="/erro_alerta_listar.jsf" />
+			</p:submenu>
+			
+			<p:submenu label="#{messages['barramenu.label.usuario']}" rendered="#{credenciaisMB.verificarPapel}">
+				<p:menuitem value="#{messages['barramenu.label.cadastrar']}" url="/usuario_cadastrar.jsf" />
+				<p:menuitem value="#{messages['barramenu.label.listar']}" url="/usuario_listar.jsf" />
+			</p:submenu>
+			
+			<p:submenu label="#{messages['barramenu.label.relatorio']}" rendered="#{securityContext.loggedIn}">
+				<p:menuitem value="#{messages['barramenu.label.erro']}" url="/relatorio_erro_consultar.jsf" />
+				<p:menuitem value="#{messages['barramenu.label.log']}" url="/relatorio_log_consultar.jsf" />
+			</p:submenu>
+
+			<p:menuitem value="#{messages['barramenu.label.login']}" url="/login.jsf" rendered="#{!securityContext.loggedIn}"/>
+			<p:menuitem value="#{messages['barramenu.label.logout']}" action="#{securityContext.logout}" rendered="#{securityContext.loggedIn}"/>
+		</p:menubar>
+	</h:form>
+
+</ui:composition>
